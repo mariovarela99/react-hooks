@@ -12,6 +12,14 @@ class App extends Component {
     }));
   };
 
+  componentDidMount() {
+    document.title = `You hava been clicked ${this.state.count} times`;
+  }
+
+  componentDidUpdate() {
+    document.title = `You hava been clicked ${this.state.count} times`;
+  }
+
   toggleLight = () => {
     this.setState((prevState) => ({
       isOn: !prevState.isOn,
