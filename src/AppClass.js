@@ -4,6 +4,8 @@ class App extends Component {
   state = {
     count: 0,
     isOn: false,
+    x: null,
+    y: null,
   };
 
   increment = () => {
@@ -14,16 +16,28 @@ class App extends Component {
 
   componentDidMount() {
     document.title = `You hava been clicked ${this.state.count} times`;
+    window.addEventListener("mousemove", this.handleMouseMove);
   }
 
   componentDidUpdate() {
     document.title = `You hava been clicked ${this.state.count} times`;
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("mousemove", this.handleMouseMove);
+  }
+
   toggleLight = () => {
     this.setState((prevState) => ({
       isOn: !prevState.isOn,
     }));
+  };
+
+  handleMouseMove = (event) => {
+    this.setState({
+      x: event.pageX,
+      y: event.pageY,
+    });
   };
 
   render() {
@@ -42,6 +56,10 @@ class App extends Component {
           }}
           onClick={this.toggleLight}
         />
+
+        <h2>Mouse Position</h2>
+        <p>X Position: {this.state.x} </p>
+        <p>Y Position: {this.state.y} </p>
       </>
     );
   }
